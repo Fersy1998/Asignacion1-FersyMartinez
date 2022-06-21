@@ -1,0 +1,29 @@
+
+@font-face {
+    font-family:'Shippori Antique' ;
+    src: url("/public/fonts/-F6qfid3KC8pdMyzR0qRyFUht11v8ldPg-IUDNg.ttf") format('truetype');
+}
+nav{
+    
+    top:0;
+    background-color: #010101;
+    font-family: 'Shippori Antique' ;
+    color:white;
+}
+.text-logo{
+    align-items: center;
+    vertical-align: middle;
+}
+nav img{
+    left:53px;
+}
+.E-commerce{
+    font-family: 'Shippori Antique';
+    font-size: 2em;
+}
+nav a:hover{
+    transition: color 0.3s ease-in-out;
+    
+    color:#00B7CE;
+
+}

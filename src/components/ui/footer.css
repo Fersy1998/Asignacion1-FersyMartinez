@@ -1,0 +1,21 @@
+.footer{
+    bottom: 0;
+    position: fixed;
+    clear:both;
+    width: 100vw;
+    height: 4em;
+    background-color: #010101;
+    color:white;
+    z-index: 20;
+}
+.social-media, .footer{
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+	align-items: center;
+	align-content: center;
+}
+.social-media{
+    width: 10em !important;
+}
