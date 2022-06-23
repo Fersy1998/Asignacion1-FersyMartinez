@@ -1,21 +1,35 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Auth.css'
-
-import { useDispatch } from 'react-redux';
 import {startGoogleLogin }  from '../../actions/authActions'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 export const AuthLogin = () => {
+  
+  const navigate=useNavigate();
   const dispatch=useDispatch();
   /*dispatch( login({
     uid: '0989389',
     name: 'Fersy'
 }));*/
+const user=useSelector(state=>state.auth)
+const [userActive, setActiveUser] = useState(user);
+useEffect(() => {
+    if(user?.uid){
+        setActiveUser(true);
+        navigate('/', {
+            replace:true
+          }) ;
+      }else{
+        setActiveUser(false);
+      }
+}, [setActiveUser])
   const handleGoogleLogin=()=>{
     dispatch(startGoogleLogin() );
-  
+    
   }
   return (
-    <div class="container-AuthLogin flex flex-col sm:flex-row py-4 px-6">
-    {<div class="image-back"><img src="/assets/carrito-e-commerce.jpeg"alt="carrito-compras"/></div>
+    <div className="container-AuthLogin flex flex-col sm:flex-row py-4 px-6">
+    {<div className="image-back"><img src="/assets/carrito-e-commerce.jpeg"alt="carrito-compras"/></div>
 }
     <div className="p-4 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-6 dark:bg-gray-800 dark:border-gray-700 ml-auto mr-auto">
       <form className="space-y-6" action="#">

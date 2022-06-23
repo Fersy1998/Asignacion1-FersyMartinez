@@ -9,6 +9,7 @@ export const types={
 
     commentStartAddNew: '[comment] Start add new',
     commentAddNew: '[comment] Add new',
+    calificationAddNew: '[comment] Add new calification',
     commentClearActivecomment: '[comment] Clear active comment',
     commentLoaded: '[comment] comments loaded',
 

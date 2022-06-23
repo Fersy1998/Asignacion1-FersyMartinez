@@ -9,6 +9,8 @@ export const ProductCard = ({product}) => {
   const dispatch=useDispatch();
   const gotoDetail=()=>{
     dispatch(productSetActive(product));
+    
+    localStorage.setItem('active', JSON.stringify(product));
     return navigate("/product-detail", { replace: true });
   
   }

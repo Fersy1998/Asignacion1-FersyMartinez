@@ -6,14 +6,18 @@ import { ProductDetail } from '../components/product-detail/ProductDetail'
 import { Footer } from '../components/ui/Footer'
 import { NavBar } from '../components/ui/NavBar'
 import { Routes, Route } from 'react-router-dom'
-export const AuthRouter = () => {
+
+export const AuthRouter = ({isAuthenticated}) => {
+  
   return (
     <>
-    <NavBar />
+    <NavBar/>
                 <Routes>
-                          <Route exact path='/login' element={<AuthLogin />}/>
-                          <Route exact path='/register' element={<AuthRegister />}/>
-                          <Route exact path='/product-detail' element={<ProductDetail />}/>
+                        {
+                        !isAuthenticated && (<><Route exact path='/login' element={<AuthLogin />} /><Route exact path='/register' element={<AuthRegister />} /></>)
+                        }
+                          
+                          <Route exact path='/product-detail' element={<ProductDetail/>}/>
                           <Route exact path='/inicio' element={<Home/>}/>
                           <Route exact path='/*' element={<Home/>}/>
     

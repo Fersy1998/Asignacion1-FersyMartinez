@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Comment } from './Comment'
 import { Description } from './Description'
 import './productDetail.css'
@@ -7,16 +7,22 @@ import { CommentModalContent } from './CommentModalContent'
 import { NoAuthModal } from './NoAuthModal'
 import { useNavigate } from 'react-router-dom'
 import { Stars } from '../../helpers/Stars'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { productSetActive } from '../../actions/productActions'
 export const ProductDetail = () => {
+    
     const navigate=useNavigate();
-    const {user}=useSelector(state=>state.auth);
-    const {activeProduct}=useSelector(state=>state.product);
-    const product=activeProduct;
-    const {comments}=activeProduct;
+    const dispatch=useDispatch();
+    
+    const {uid}=useSelector(state=>state.auth);
+    const active=JSON.parse(localStorage.getItem('active'));
+    let product=active;
+    dispatch(productSetActive(active));
+    console.log(uid);
+    
+    const {comments}=active;
     const gotoHome=()=>{
         return navigate("/home", { replace: true });
-      
       }
   return (
     <>
@@ -61,7 +67,7 @@ export const ProductDetail = () => {
         <div>	
             <div className='text-right'> <a href="#close" title="Close" className="close ml-auto">X</a></div>
             {
-                !user ? (<CommentModalContent />) : <NoAuthModal />
+                !!uid ? (<CommentModalContent />) : <NoAuthModal />
             }
         </div>
     </div>

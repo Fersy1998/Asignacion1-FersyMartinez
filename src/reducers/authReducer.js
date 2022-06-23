@@ -1,9 +1,7 @@
 import { types } from "../types/types";
 
 const initialState={
-    checking:true,
-    //uid:null,
-    //name:null
+    checking:true
 }
 
 
@@ -23,9 +21,7 @@ export const authReducer = (state=initialState, action) => {
             }
 
         case types.authlogout:
-            return {
-                checking: false
-            }
+            return initialState
 
     default:
         return state;
