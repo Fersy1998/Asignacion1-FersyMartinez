@@ -1,11 +1,20 @@
+
 import { products } from "../data/products";
 
 export const getProductByName=(name='')=>{
-    if(name.length===0){
-        return [];
-    }
+    
     name=name.toLowerCase();
-    console.log('estos son todos: ', products);
-    return products.filter(product=>product.name.toLowerCase().includes(name));
+    const filteredProducts= products.filter(product=>product.name.toLowerCase().includes(name))
+    let status=true;
+    if(filteredProducts.length===0){
+        status=false;
+    }
+    if(name.length<1){
+        status=true;
+    }
+    return {
+        filteredProducts,
+        status
+    };
     
 }
