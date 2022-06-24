@@ -1,28 +1,7 @@
+import { products } from '../data/products';
 import { types } from '../types/types';
 
-const products=[
-    {
-        id:'232415345646',
-        name:'Mini Little Hypo',
-        logo:'/assets/productos/71KfdpD2qCL._AC_SL1500_.jpg',
-        banner:'/assets/productos/banner imagen 1.jpg',
-        description:'This is a product that helps the kids to sleep and wake up early',
-        tags:['niños', 'alarma', 'entretenimiento'],
-        date:'12/12/2022',
-        rate:[4,5],
-        users:['32413', '324513'],
-        author:'José Barahona',
-        photo:'/assets/productos/404-4041138_circle-group-icon-png-clipart.png',
-        category:'entertainment',
-        comments:[
-            {
-                comment:'Good product',
-                author:'Georgia Ramírez',
-                date:'14/12/2022',
-                photo:'/assets/productos/404-4041138_circle-group-icon-png-clipart.png'
-            }
-        ]
-    }]
+
 
 const initialState = {
     products: products,
@@ -47,36 +26,76 @@ export const productReducer = ( state = initialState, action ) => {
                 activeProduct: null
             }
 
-        case types.productLoaded:
-            return {
-                ...state,
-                products: [ ...action.payload ]
-            }
-
         case types.productLogout:
             return {
                 ...initialState
             }
         
         case types.calificationAddNew:
-                return {
-                    ...state,
-                    products:state.products.filter(product=>(product.id ===action.payload.id) ? (product.rate.push(action.payload.calification), product.users.push(action.payload.uid)): product),
-                    activeProduct:{
-                        ...state.activeProduct, 
-                        rate: [...state.activeProduct.rate, action.payload.calification], 
-                        users: [...state.activeProduct.users, action.payload.uid]
-                }
-            }
-        case types.commentAddNew:
+            console.log('payload', action.payload)
+            
             return {
                 ...state,
-                products:state.products.filter(product=>(product.id ===action.payload.id) ? product.comments.push(action.payload.comment): product),
+                products:state.products.filter(product=>
+                    (product.id ===action.payload.id) 
+                    ? (product.rate.push(action.payload.calification), product.users.push(action.payload.uid))
+                    : product),
+                activeProduct:{
+                    ...state.activeProduct, 
+                    rate: [...state.activeProduct.rate, action.payload.calification], 
+                    users: [...state.activeProduct.users, action.payload.uid]
+                }
+            
+            }
+        case types.commentAddNew:
+            console.log('mi comentario en el reducer', action.payload.comment);
+            return {
+                ...state,
+                products:state.products.filter(product=>
+                    (product.id ===action.payload.id) 
+                    ? product.comments.push(action.payload.comment)
+                    //? {...product, comments: product.comments.push(action.payload.comment) }
+                    //? JSON.parse(localStorage.getItem('active'))
+                    : product),
                 activeProduct:{
                     ...state.activeProduct, 
                     comments: [...state.activeProduct.comments, action.payload.comment]}
             }
-
+        case types.commentAddNewX:
+                console.log('mi comentario en el reducer x', action.payload.comment);
+                return {
+                    ...state,
+                    products:state.products.filter(product=>
+                        (product.id ===action.payload.id) 
+                        ? (product.comments.push(action.payload.comment),
+                            product.rate.push(action.payload.calification),
+                            product.users.push(action.payload.uid)
+                        )
+                        //? {...product, comments: product.comments.push(action.payload.comment) }
+                        //? JSON.parse(localStorage.getItem('active'))
+                        : product),
+                    activeProduct:{
+                        ...state.activeProduct, 
+                        comments: [...state.activeProduct.comments, action.payload.comment],
+                        rate: [...state.activeProduct.rate, action.payload.calification], 
+                        users: [...state.activeProduct.users, action.payload.uid]}
+                }
+        case types.productRefresh:
+            return {
+                ...state,
+                products:state.products.map(product=>
+                    product.id===action.payload.id
+                    ? action.payload.product
+                    :product
+                )
+            }
+        case types.productLoaded:
+            return state
+        case types.productFiltered:
+            return {
+                ...state,
+                filtered: [...action.payload]
+            }
         default:
             return state;
     }

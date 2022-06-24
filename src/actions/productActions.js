@@ -29,9 +29,14 @@ export const productStartLoading = () => {
    // dispatch( productLoaded() );
 }
 
-const productLoaded = (products) => ({
+export const productLoaded = (products) => ({
     type: types.productLoaded,
     payload: products
+})
+
+export const setFiltered = (products=[]) => ({
+    type: types.productFiltered,
+    payload: [...products]
 })
 
 export const productLogout =() => ({ type: types.productLogout });

@@ -56,7 +56,7 @@ export const ProductDetail = () => {
         <div className='text-left font-bold'><h1>Reseñas</h1></div>
         <div className='comments-section'>
             {
-            comments.map(comment=> <Comment key='comment.author' comment={comment} />)
+            comments.map(comment=> <Comment key={comment.author} comment={comment} />)
             }
           
         </div>

@@ -26,8 +26,10 @@
     font-size: 20px;
     padding: 00.2em;
   }
-  
-  /*Resize the wrap to see the search bar change!*/
+.searchButton:hover{
+  padding: 00.2em;
+
+}
   .wrap{
     width: 80%;
     padding-top:2em;

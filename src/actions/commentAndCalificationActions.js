@@ -9,11 +9,8 @@ export const startNewCalificationCommment=({calification, comment})=>{
         const displayName=getState().auth.displayName;
         const product=getState().product.activeProduct;
         const users=await product.users.find(user=>user===uid);
-        console.log(users);
         if(users){
-            console.log('no entra');
-           
-            return await Swal.fire({
+            Swal.fire({
                 title:'Error', 
                 text:'Ya ha calificado este producto',
                 icon:'error'
@@ -30,38 +27,31 @@ export const startNewCalificationCommment=({calification, comment})=>{
                 photo: "/assets/productos/404-4041138_circle-group-icon-png-clipart.png"
             }
             if(comment !==undefined && comment !==null && comment !==''){
-                const date=myDate();
+                console.log('mi comentario', comment);
                 pls.comments.push(myUserComment);
+                localStorage.setItem('active', JSON.stringify(pls));
+                
             }
-            localStorage.setItem('active', JSON.stringify(pls));
             console.log(pls);
-            await dispatch(addCalificaction(calification, uid, product.id));
+           
             if(comment !==undefined && comment !==null && comment !==''){
-               
-                await dispatch(addComment(myUserComment, product.id));
-                return 
+                console.log('si entra aquí');
+                dispatch(addCommentX(myUserComment, calification, uid, product.id));
+            }else{
+                dispatch(addCalification(calification, uid, product.id));
+            
             }
+            console.log('en localstarage', localStorage.getItem('active'));
+            dispatch(refreshProduct(product.id, localStorage.getItem('active')));
            
         }
-         
-        /*
-        const newNote={
-            title:'',
-            body:'',
-            date:new Date().getTime(),
-            url:''
-        }
-       
-        try {
-            const doc= await db.collection(`${uid}/journal/notes`).add(newNote);
-            dispatch(activeNote(doc.id, newNote));
-        } catch (error) {
-            return error;
-        }*/
         
     }
 }
-export const addCalificaction=(calification, uid, id)=>({
+export const loadProducts=()=>({
+    type:types.productLoaded
+})
+const addCalification=(calification, uid, id)=>({
     type:types.calificationAddNew,
     payload:{
         calification,
@@ -69,62 +59,28 @@ export const addCalificaction=(calification, uid, id)=>({
         id
     }
 })
-export const addComment=(myUserComment, id)=>({
+const addComment=(myUserComment, id)=>({
     type:types.commentAddNew,
     payload:{
         comment:myUserComment,
         id
     }
 })
-/*
-export const activeNote=(id, note)=>({
-    type: types.notesActive,
+const addCommentX=(myUserComment, calification, uid, id)=>({
+    type:types.commentAddNewX,
     payload:{
-        id,
-        ...note
+        comment:myUserComment,
+        calification,
+        uid,
+        id
     }
 })
-export const startLoadingNotes=(uid)=>{
-    return async (dispatch)=>{
-        const notes=await loadNotes(uid);
-        dispatch(setNotes(notes));
-    }
-}
-export const setNotes=(notes)=>({
-    type:types.notesLoad,
-    payload:notes
-})
-
-export const startSaveNotes=(note)=>{
-    return async(dispatch, getState)=>{
-        const uid=getState().auth.uid;
-        let noteToFirestore={...note};
-        if(!note.url){
-            delete note.url;
-        }
-        delete noteToFirestore.id;
-        await db.doc(`${uid}/journal/notes/${note.id}`).update(noteToFirestore);
-        dispatch(deleteNote(note.id));
-        dispatch(AddNewNote(note.id, {...note} ));
-        dispatch(activeNote(note.id, {...note} ));
-        Swal.fire('Saved', note.title, 'success' );
-    }
-}
-export const AddNewNote=(id, note)=>({
-    type:types.notesAddNew,
-    payload:{
-        id, ...note
-    }
-    
-    })
-
-//Recarga la nota editada solamente
-export const refreshNote=(id, note)=>({
-    type:types.notesUpdated,
+const refreshProduct=(id, product)=>({
+    type:types.refreshProduct,
     payload:{
         id,
-        note:{
-            ...note
+        product:{
+            ...product
         }
     }
-})*/
+})

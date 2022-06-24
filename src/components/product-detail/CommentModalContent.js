@@ -51,7 +51,7 @@ export const CommentModalContent = () => {
                 </div>
                 <div className='text-bold font-bold'>Dejar un comentario:</div>
                 <div> 
-                    <input type="number" className='oculto' name='stars'value={valueStar}/>
+                    <input type="number" className='oculto' name='stars' value={valueStar}/>
                     <textarea name="comentario" onChange={handleInputChange} placeholder='Añade un comentario...' value={comentario}/>
                 </div>
                 <div className='mt-2 text-right mr-14'><button onClick={handleSubmit}>Enviar <i className="fas fa-solid fa-paper-plane ml-2"></i></button></div>

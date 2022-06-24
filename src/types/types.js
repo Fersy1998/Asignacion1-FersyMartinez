@@ -6,9 +6,13 @@ export const types={
     productLogout: '[product] Logout product',
     productClearActiveproduct: '[product] Clear active product',
     productLoaded: '[product] products loaded',
-
+    productRefresh:'[product] refresh edited product',
+    productFiltered: '[product] products filtered',
+    
+    
     commentStartAddNew: '[comment] Start add new',
     commentAddNew: '[comment] Add new',
+    commentAddNewX: '[comment] Add new X',
     calificationAddNew: '[comment] Add new calification',
     commentClearActivecomment: '[comment] Clear active comment',
     commentLoaded: '[comment] comments loaded',
