@@ -1,20 +1,16 @@
-import Swal from "sweetalert2";
+
 import { myDate } from "../helpers/Date";
 import { types } from "../types/types";
-
+import {setFire} from '../helpers/swal';
 
 export const startNewCalificationCommment=({calification, comment})=>{
     return async(dispatch, getState)=>{
         const uid=getState().auth.uid;
         const displayName=getState().auth.displayName;
         const product=getState().product.activeProduct;
-        const users=await product.users.find(user=>user===uid);
+        const users=product.users.find(user=>user===uid);
         if(users){
-            Swal.fire({
-                title:'Error', 
-                text:'Ya ha calificado este producto',
-                icon:'error'
-                });
+            setFire('Error','Ya ha calificado este producto', 'error');
         }else{
             let pls=JSON.parse(localStorage.getItem('active'));
             pls.rate.push(calification);
@@ -26,24 +22,20 @@ export const startNewCalificationCommment=({calification, comment})=>{
                 date: date,
                 photo: "/assets/productos/404-4041138_circle-group-icon-png-clipart.png"
             }
+            
             if(comment !==undefined && comment !==null && comment !==''){
-                console.log('mi comentario', comment);
                 pls.comments.push(myUserComment);
-                localStorage.setItem('active', JSON.stringify(pls));
-                
             }
-            console.log(pls);
-           
+            localStorage.setItem('active', JSON.stringify(pls));
+            //dispatch(refreshProduct(product.id, localStorage.getItem('active')));
             if(comment !==undefined && comment !==null && comment !==''){
-                console.log('si entra aquí');
-                dispatch(addCommentX(myUserComment, calification, uid, product.id));
+                dispatch(addComment(myUserComment, calification, uid, product.id));
+                setFire('Comentario', 'Calificación y comentario agregados con éxito', 'success');
+               
             }else{
                 dispatch(addCalification(calification, uid, product.id));
             
             }
-            console.log('en localstarage', localStorage.getItem('active'));
-            dispatch(refreshProduct(product.id, localStorage.getItem('active')));
-           
         }
         
     }
@@ -59,15 +51,8 @@ const addCalification=(calification, uid, id)=>({
         id
     }
 })
-const addComment=(myUserComment, id)=>({
+const addComment=(myUserComment, calification, uid, id)=>({
     type:types.commentAddNew,
-    payload:{
-        comment:myUserComment,
-        id
-    }
-})
-const addCommentX=(myUserComment, calification, uid, id)=>({
-    type:types.commentAddNewX,
     payload:{
         comment:myUserComment,
         calification,
@@ -76,7 +61,7 @@ const addCommentX=(myUserComment, calification, uid, id)=>({
     }
 })
 const refreshProduct=(id, product)=>({
-    type:types.refreshProduct,
+    type:types.productRefresh,
     payload:{
         id,
         product:{
@@ -84,3 +69,5 @@ const refreshProduct=(id, product)=>({
         }
     }
 })
+
+

@@ -15,4 +15,6 @@ body, html{
   overflow-y: scroll;
 
 }
-
+.fa-star, .fa-star-half{
+  color:rgb(250, 198, 28) !important;
+}

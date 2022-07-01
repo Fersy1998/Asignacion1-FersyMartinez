@@ -1,6 +1,20 @@
 import React from 'react'
 
 export const Stars = ({rate}) => {
+
+  if(rate.length===0){
+    return  (<>
+    
+    <i className='far fa-star'></i>
+    <i className='far fa-star'></i>
+    <i className='far fa-star'></i>
+    <i className='far fa-star'></i>
+    <i className='far fa-star'></i>
+    
+    </>
+      )
+    
+  }
     //product rate
   let productRate=0;
   for(let i=0;i<rate.length;i++){productRate+=rate[i];}

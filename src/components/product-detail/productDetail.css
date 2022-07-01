@@ -28,7 +28,10 @@
     font-weight: bold;
     
 }
-
+.description-detail div{
+    padding-left: 1em;
+    padding-right: 1em;
+}
 .images-container{
     width: 50%;
     height: 20%;

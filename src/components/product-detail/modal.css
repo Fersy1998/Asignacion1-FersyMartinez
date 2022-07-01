@@ -14,6 +14,9 @@
     transition: opacity 400ms ease-in;
     pointer-events: none;
 }
+.imgCont img{
+    max-height: 247px;
+}
 .modalDialog:target {
     opacity:1;
     pointer-events: auto;

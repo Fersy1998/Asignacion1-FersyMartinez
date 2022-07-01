@@ -2,15 +2,21 @@
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     width: 15em;
-    margin-right: 0;
-    padding: 5px;
     top:0;
     bottom: 0;
     left: 0;
     right: 0;
     margin: auto;
+    min-height: 399px;
 }
-
+.myProducts{
+  margin-top: 5em;
+  
+}
+.front{
+  max-width: 240px;
+  max-height: 223px;
+}
 .card {
     text-align: center;
     background-color: #fff;
@@ -33,6 +39,7 @@
     height:100%;
     position:relative;
     overflow:hidden;
+    min-height: 223px;
   }
   .card .content .back{
     position:absolute;
@@ -41,27 +48,18 @@
     background-color: #7daff181;
     transition:1s;
     z-index:1;
-    padding:10px;
-    
   }
   
   .from-left{
     top:0;
-    left:-100%;
+    left:-110%;
+    align-items:center;
+    vertical-align: middle;
   }
   .card:hover .content .from-left {
      left:0%;
   }
   
-  .from-bottom{
-    top:100%;
-    left:0;
-  }
-  .card:hover .content .from-bottom {
-     top:0%;
-  }
-  
-
 .shortDescription p{
     padding: 1.2em;
 }
@@ -74,10 +72,17 @@
 	transition: .2s ease-in-out;
 	border-left: 3px transparent solid;
 	border-right: 3px transparent solid;
-	font-size: 2em;
-	padding-right: 1em;
+	font-size: 1em;
+	/*padding-right: 1em;
 	padding-left: 1em;
-    margin-top: 3em;
+  margin-top: 3em;*/
+  margin:auto;
+  top:0;
+  bottom:0;
+  right: 0;
+  left: 0;
+  margin-top: 40%;
+  transform: (50% 50% 50% 50%);
 }
 
 .verMas:hover {
@@ -85,7 +90,6 @@
 	background-color: black;
 	border-left:  #7DB0F1 10px solid;
 	border-right:  #7DB0F1 10px solid;
-
 }
 .grid{
   left: 0;

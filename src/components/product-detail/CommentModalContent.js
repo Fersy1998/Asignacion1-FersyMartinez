@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 import { startNewCalificationCommment } from '../../actions/commentAndCalificationActions';
 import { useForm } from '../../hooks/useForm';
 import './productDetail.css';
@@ -12,21 +13,25 @@ export const CommentModalContent = () => {
     const dispatch=useDispatch();
     const handleSubmit=(e)=>{
         e.preventDefault();
-        console.log(valueStar);
-       if(validateForm){
-        console.log(comentario);
+       if(validateForm()){
             const data={
                     calification:valueStar,
                     comment:comentario
             }
             dispatch(startNewCalificationCommment(data));
+        }else{
+            Swal.fire('Error', 'Debe calificar con estrellas en rango de 1-5', 'error');
+        
         }
         
     
     }
     const validateForm=()=>{
-        if(valueStar>0){
+        
+        if(valueStar!==0){
             return true;
+        }else{
+            return false;
         }
     
     }
@@ -34,7 +39,7 @@ export const CommentModalContent = () => {
     <div className="detailContainerComment mr-auto ml-auto">
         <form onSubmit={handleSubmit}>
         <div className='image-and-description flex'>
-            <div className='mb-4 w-50'>
+            <div className='mb-4 w-50 imgCont'>
                 <div className='mb-4 w-50 font-bold text-center'>{activeProduct.name}</div>
                 <img src={activeProduct.logo} alt='imageProduct'/>
             </div>
@@ -51,7 +56,7 @@ export const CommentModalContent = () => {
                 </div>
                 <div className='text-bold font-bold'>Dejar un comentario:</div>
                 <div> 
-                    <input type="number" className='oculto' name='stars' value={valueStar}/>
+                    <input type="number" className='oculto' name='stars' defaultValue={valueStar}/>
                     <textarea name="comentario" onChange={handleInputChange} placeholder='Añade un comentario...' value={comentario}/>
                 </div>
                 <div className='mt-2 text-right mr-14'><button onClick={handleSubmit}>Enviar <i className="fas fa-solid fa-paper-plane ml-2"></i></button></div>

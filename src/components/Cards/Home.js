@@ -5,14 +5,31 @@ import { ProductCard } from './ProductCard'
 import './productCard.css'
 import queryString from 'query-string'
 import { useLocation } from 'react-router-dom'
-import { getProductByName } from '../../helpers/selectorByName'
+//import { getProductByName } from '../../helpers/selectorByName'
 export const Home = () => {
   
   const location=useLocation();
   const {products}=useSelector(state=>state.product);
+  const getProductByName=(name='')=>{
+    
+    name=name.toLowerCase();
+    const filteredProducts= products.filter(product=>product.name.toLowerCase().includes(name))
+    let status=true;
+    if(filteredProducts.length===0){
+        status=false;
+    }
+    if(name.length<1){
+        status=true;
+    }
+    return {
+        filteredProducts,
+        status
+    };
+    
+}
   const {q=''}=queryString.parse(location.search);
   const [valueToOrder, setValueToOrder] = useState('ascendente');
-  const {filteredProducts=[], status}= getProductByName(q)
+  let {filteredProducts=[], status}= getProductByName(q)
   
   filteredProducts.map(product=>{
           let productRate=0;
@@ -27,30 +44,24 @@ export const Home = () => {
   }else{
     orderedProducts= filteredProducts.slice().sort((productA, productB) => productB.rateX - productA.rateX);
   }
-console.log(orderedProducts);
   const setValue=(e)=>{
       setValueToOrder(e.target.value);
-     
-    
   }
+  
   return (
     <>  
     <div className="wrap mr-auto ml-auto">
         <Search />
-        <div className='select text-right ml-auto'>Ordenar por calificación: 
+        <div className='select text-right ml-auto mb-5'>Ordenar por calificación: 
             <select className="select-button" value={ valueToOrder } onChange={ setValue }>
                 <option value="ascendente" >ascendente</option>
                 <option value="descendente" >descendente</option>
             </select>
         </div>
-    </div>
-          {
-            
-          }
           {
             status
             ?(
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 container">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-6 myProducts">
               {
                 orderedProducts.map(product=>(<div key={product.id}><ProductCard product={product}/></div>))
               }
@@ -65,7 +76,7 @@ console.log(orderedProducts);
                 </div>)
               :
                 (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 container">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-6 myProducts">
                   {
                     products.map(product=>(<div key={product.id}><ProductCard product={product}/></div>))
                   }
@@ -76,6 +87,7 @@ console.log(orderedProducts);
                 ))
           }
         
+    </div>
     </>
   )
 }

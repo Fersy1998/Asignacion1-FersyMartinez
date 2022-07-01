@@ -26,11 +26,12 @@ export const login = ( uid, displayName) => ({
 });
 export const startLogOut=()=>{
     return async (dispatch)=>{
-        await firebase.auth().signOut()
+        console.log('saliendoooo');
+        await firebase.auth().signOut();
         dispatch(logOut());
     }
 
 }
-export const logOut=()=>({
+const logOut=()=>({
         type:types.authlogout
 })

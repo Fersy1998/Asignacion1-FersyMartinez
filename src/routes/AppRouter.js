@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { firebase } from '../firebase/firebaseConfig'
 import { useDispatch } from 'react-redux'
 import { login } from '../actions/authActions'
-import { loadProducts } from '../actions/commentAndCalificationActions'
+import { productStartLoading } from '../actions/productActions'
 import { setFiltered } from '../actions/productActions'
 
 
@@ -13,17 +13,18 @@ export const AppRouter = () => {
   const dispatch=useDispatch();
   const [checking, setChecking] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState('');
-  dispatch(loadProducts());
   //dispatch(setFiltered());
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((user)=>{
+    firebase.auth().onAuthStateChanged(async(user)=>{
       if(user?.uid){
-        dispatch(login(user.uid, user.displayName));
+        await dispatch(login(user.uid, user.displayName));
         setIsLoggedIn(true);
-        dispatch(loadProducts());
+        //dispatch(productStartLoading());
       }else{
         setIsLoggedIn(false);
       }
+      
+      await dispatch(productStartLoading());
       setChecking(false);
     })
   }, [dispatch, setChecking, setIsLoggedIn]);
