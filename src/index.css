@@ -18,3 +18,15 @@ body, html{
 .fa-star, .fa-star-half{
   color:rgb(250, 198, 28) !important;
 }
+.spinner{
+  height: 100vh;
+  
+}
+.spinner, .spinner svg{
+  margin:auto;
+  top:0;
+  bottom:0;
+  right: 0;
+  left: 0;
+  margin-top:20%;
+}

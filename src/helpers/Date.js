@@ -9,9 +9,9 @@ export const myDate=()=>{
     let year = date.getFullYear();
     
     if(month < 10){
-      dateFinal=`${day}/0${month}/${year}`;
+      dateFinal=`${year}/0${month}/${day}`;
     }else{
-      dateFinal=`${day}/${month}/${year}`;
+      dateFinal=`${year}/${month}/${day}`;
     }
     return dateFinal;
 }

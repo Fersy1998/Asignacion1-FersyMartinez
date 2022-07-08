@@ -27,8 +27,10 @@ export const Search = () => {
                   placeholder="Search..." 
                   name='searchProduct'
                   autoComplete='off'
-                  value={searchProduct}
-                  onChange={handleInputChange}/>
+                  value={searchProduct || '' }
+                  onChange={handleInputChange}
+                  
+            />
            <button type="submit" className="searchButton"  onClick={handleSubmit}>
              <i className="fa fa-search"></i>
             </button>

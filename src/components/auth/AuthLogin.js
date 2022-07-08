@@ -1,37 +1,37 @@
 import React, { useEffect, useState } from 'react'
 import './Auth.css'
-import {startGoogleLogin }  from '../../actions/authActions'
+import {startGoogleLogin, startFacebookLogin }  from '../../actions/authActions'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 export const AuthLogin = () => {
   
   const navigate=useNavigate();
   const dispatch=useDispatch();
-  /*dispatch( login({
-    uid: '0989389',
-    name: 'Fersy'
-}));*/
-const user=useSelector(state=>state.auth)
-const [userActive, setActiveUser] = useState(user);
-useEffect(() => {
-    if(user?.uid){
-        setActiveUser(true);
-        navigate('/', {
-            replace:true
-          }) ;
-      }else{
-        setActiveUser(false);
-      }
-}, [setActiveUser])
-  const handleGoogleLogin=()=>{
-    dispatch(startGoogleLogin() );
-    
-  }
+  const user=useSelector(state=>state.auth)
+  const [userActive, setActiveUser] = useState(user);
+  useEffect(() => {
+      if(user?.uid){
+          setActiveUser(true);
+          navigate('/', {
+              replace:true
+            }) ;
+        }else{
+          setActiveUser(false);
+        }
+  }, [setActiveUser])
+    const handleGoogleLogin=()=>{
+      dispatch(startGoogleLogin() );
+      
+    }
+    const handleFacebookLogin=()=>{
+      dispatch(startFacebookLogin() );
+      
+    }
   return (
     <div className="container-AuthLogin flex flex-col sm:flex-row py-4 px-6">
     {<div className="image-back"><img src="/assets/carrito-e-commerce.jpeg"alt="carrito-compras"/></div>
 }
-    <div className="p-4 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-6 dark:bg-gray-800 dark:border-gray-700 ml-auto mr-auto">
+    <div className="p-4 max-w-sm bg-white white-bg rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-6 dark:bg-gray-800 dark:border-gray-700 ml-auto mr-auto">
       <form className="space-y-6" action="#">
           <div className='text-center'>
             <h5 className="text-xl font-medium text-gray-900 text-grey">Inicio de sesión</h5>
@@ -48,7 +48,7 @@ useEffect(() => {
         
          
           
-              <div className="facebook-btn">
+              <div className="facebook-btn" onClick={handleFacebookLogin}>
                 <div className="facebook-icon-wrapper text-right  mb-2">
                   <img className="facebook-icon  mr-2" src="https://www.pngmart.com/files/15/Circle-Facebook-Logo-PNG-Background-Image.png"/>
                   <p className="btn-text align-middle flex mt-3 ml-auto"><b>Sign in with Facebook</b></p>
@@ -56,10 +56,14 @@ useEffect(() => {
                 <hr />
               </div>
         
+        {
+        /*
+        <div className="registrarse text-sm font-medium text-gray-500 dark:text-gray-300 ">
+        ¿No tienes una cuenta? <a href="/register" className="text-blue-700 hover:underline dark:text-blue-500">Regístrate</a>
+        </div>*/
         
-          <div className="registrarse text-sm font-medium text-gray-500 dark:text-gray-300 ">
-              ¿No tienes una cuenta? <a href="/register" className="text-blue-700 hover:underline dark:text-blue-500">Regístrate</a>
-          </div>
+        }
+          
       </form>
   </div>
 </div>

@@ -19,6 +19,9 @@
 	align-content: stretch;
 	
 }
+.grid{
+    margin-bottom: 1em;
+}
 .titleDetail div{
     font-size: 2em;
     font-weight: bolder;
@@ -33,26 +36,45 @@
     padding-right: 1em;
 }
 .images-container{
-    width: 50%;
-    height: 20%;
     
     position: relative;
+    overflow: hidden;
+}
+.uppercase{
+    font-size: 0.8em !important;
+    
 }
 .banner{
-    width: 100%;
+    height: 100%;
     object-fit: cover;
     border-radius: 10px;
 }
 
 .product-image{
     position: absolute;
-    height: 60%;
+    /*height: 60%;*/
     z-index:1;
+    width: 70%;
+    height: auto;
+    object-fit: contain;
     margin:auto;
-    top:2em;
-    left:2em;
+    top:0em;
+    left:3em;
+    border:solid 5px #fff;
+    
 }
+.product-img{
+    height: auto;
+    object-fit: contain;
+    margin:auto;
 
+}
+.accordion-button{
+    width: 96%;
+}
+.accordion-item{
+    border: 0;
+}
 .des-detail a, .autor-detail a, .date{
     color: rgba(0, 0, 0, 0.6);
 }
@@ -178,4 +200,8 @@ button:hover{
     background-color:#619ae6 ;
     padding: 0.5em;
     color:white;
+}
+.accordion-button{
+    padding: 0 !important;
+    padding: 0.5em !important;
 }

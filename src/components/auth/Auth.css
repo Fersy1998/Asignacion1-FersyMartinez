@@ -55,7 +55,7 @@
   width: 100vw;
   filter: blur(4px);
 }
-.bg-white{
+.white-bg{
   display: flex;
   position: absolute;
   width: 15em;

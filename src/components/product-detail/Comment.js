@@ -2,9 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import './productDetail.css';
 export const Comment = ({comment}) => {
+
+    const nueva=comment.date.split(" ")[0].split("/").reverse().join("/");
   return (
   <>
-    <hr />
     <div className='comment-detail mt-2 align-middle'>
         <div className='profile-comment text-center'>
         
@@ -18,7 +19,7 @@ export const Comment = ({comment}) => {
             <p className='comment'>{comment.comment}</p>
         </div>
         <div className="text-left date ml-auto">
-            {comment.date}
+            {nueva}
         </div>
     </div>
     <hr />

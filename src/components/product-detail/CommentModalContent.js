@@ -8,7 +8,8 @@ import './productDetail.css';
 export const CommentModalContent = () => {
     const {activeProduct}=useSelector(state=>state.product); 
     const [valueStar, setValueStar] = useState(0);
-    const [formValues, handleInputChange]=useForm();
+    const [disable, setDisable] = useState(false);
+    const [formValues, handleInputChange, reset]=useForm({comentario:''});
     const {comentario}=formValues;
     const dispatch=useDispatch();
     const handleSubmit=(e)=>{
@@ -18,16 +19,20 @@ export const CommentModalContent = () => {
                     calification:valueStar,
                     comment:comentario
             }
-            dispatch(startNewCalificationCommment(data));
+           
+            setDisable(true);
+            (async ()=>{
+                setValueStar(0);
+                reset();
+                await dispatch(startNewCalificationCommment(data));
+                setDisable(false);
+            }
+            )()
         }else{
             Swal.fire('Error', 'Debe calificar con estrellas en rango de 1-5', 'error');
-        
         }
-        
-    
     }
     const validateForm=()=>{
-        
         if(valueStar!==0){
             return true;
         }else{
@@ -57,9 +62,9 @@ export const CommentModalContent = () => {
                 <div className='text-bold font-bold'>Dejar un comentario:</div>
                 <div> 
                     <input type="number" className='oculto' name='stars' defaultValue={valueStar}/>
-                    <textarea name="comentario" onChange={handleInputChange} placeholder='Añade un comentario...' value={comentario}/>
+                    <textarea id='comentario' name="comentario" onChange={handleInputChange} placeholder='Añade un comentario...' value={comentario}/>
                 </div>
-                <div className='mt-2 text-right mr-14'><button onClick={handleSubmit}>Enviar <i className="fas fa-solid fa-paper-plane ml-2"></i></button></div>
+                <div className='mt-2 text-right mr-14'><button onClick={handleSubmit} disabled={disable}>Enviar <i className="fas fa-solid fa-paper-plane ml-2"></i></button></div>
             </div>
         </div>
         </form>

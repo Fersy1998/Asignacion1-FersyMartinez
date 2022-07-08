@@ -1,6 +1,6 @@
 
 //import { products } from "../data/products";
-
+/*
 export const getProductByName=(name='')=>{
     
     name=name.toLowerCase();
@@ -17,4 +17,4 @@ export const getProductByName=(name='')=>{
         status
     };
     
-}
+}*/

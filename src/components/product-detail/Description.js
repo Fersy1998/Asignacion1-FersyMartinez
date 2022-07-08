@@ -11,14 +11,14 @@ export const Description = () => {
                     <p className='mb-4'>{activeProduct.description}</p>
                 </div>
                 <div className='des-detail'>
-                    <div>
-                        Categoría: <a>{activeProduct.category}</a>
+                    <div >
+                        <span className='text-xs uppercase font-bold text-gray-600 '>Categoría: </span><a>{activeProduct.category}</a>
                     </div>
                     <div>
-                        fecha: <a>{activeProduct.date}</a>
+                        <span className='text-xs uppercase font-bold text-gray-600'>fecha:</span> <a>{activeProduct.date}</a>
                     </div>
                     <div>
-                        Tags: <a>{activeProduct.tags.map(tag=>' '+tag)}</a>
+                        <span className='text-xs uppercase font-bold text-gray-600 '>tags:</span> <a>{activeProduct.tags.map(tag=>' '+tag)}</a>
                     </div>
         </div>
     

@@ -1,10 +1,12 @@
 //import { products } from '../data/products';
 import { types } from '../types/types';
 
-
-
 const initialState = {
-    activeProduct: null
+    activeProduct: {
+        comments:[],
+        rate:[]
+    },
+    products:[],
 };
 
 
@@ -18,7 +20,6 @@ export const productReducer = ( state = initialState, action ) => {
                 activeProduct: {...action.payload}
             }
         
-    
         case types.productClearActiveproduct:
             return {
                 ...state,
@@ -33,28 +34,42 @@ export const productReducer = ( state = initialState, action ) => {
         case types.calificationAddNew:
             return {
                 ...state,
-                products:state.products.filter(product=>
-                    (product.id ===action.payload.id) 
-                    ? (
-                    /*product.comments.push(action.payload.comment),
+                products:state.products.map(product=>{
+                    if (product.id ===action.payload.id){return {...product, rate:[...action.payload.newCalifications]}}
+                    else{
+                        return product
+                    }
+                        //product.rate = [...action.payload.newCalifications]
+                    }
+                ),
+                 /*
+                products:state.products.filter(product=>{
+                    (product.id ===action.payload.id) &&
+                    product.rate.push(action.payload.calification);
+                }),*/
+                    /*(
+                        product.comments.push(action.payload.comment),
                         product.rate.push(action.payload.calification),
                         product.users.push(action.payload.uid)*/
-                    /*{
+                        /*
+                    {
                         ...product,
                         rate:[...product.rate, action.payload.calification],
                         users: [...product.users, action.payload.uid]
                     
-                    }*/
+                    }
                     product.rate=[...product.rate, action.payload.calification],
                     product.users=[...product.users,action.payload.uid]
                     )
                     //? {...product, comments: product.comments.push(action.payload.comment) }
                     //? JSON.parse(localStorage.getItem('active'))
-                    : product),
+                    : product),*/
                 activeProduct:{
                     ...state.activeProduct, 
-                    rate: [...state.activeProduct.rate, action.payload.calification], 
-                    users: [...state.activeProduct.users, action.payload.uid]}
+                    rate: [...action.payload.newCalifications], 
+                    users: [...action.payload.newUsers]
+                    }
+                
             }
        /* case types.commentAddNew:
             return {
@@ -70,14 +85,24 @@ export const productReducer = ( state = initialState, action ) => {
                     comments: [...state.activeProduct.comments, action.payload.comment]}
             }*/
         case types.commentAddNew:
-                console.log('mi comentario en el reducer x', action.payload.comment);
                 return {
+                
                     ...state,
+                    
+                    products:state.products.map(product=>{
+                        if (product.id ===action.payload.id){return {...product, rate:[...action.payload.newCalifications]}}
+                        else{
+                            return product
+                        }
+                            //product.rate = [...action.payload.newCalifications]
+                        }
+                    ),
+                    /*
                     products:state.products.filter(product=>
                         (product.id ===action.payload.id) 
                         ? (
                         //Esto me actualiza el redux pero con error de mutation state
-                        /*
+                        
                         product.comments.push(action.payload.comment),
                         product.rate.push(action.payload.calification),
                         product.users.push(action.payload.uid)
@@ -85,7 +110,7 @@ export const productReducer = ( state = initialState, action ) => {
                             
                             
                             //Esto no me actualiza el Redux
-                        {
+                       /* {
                             ...product,
                             comments: [action.payload.comment, ...product.comments],
                             rate:[...product.rate, action.payload.calification],
@@ -95,13 +120,20 @@ export const productReducer = ( state = initialState, action ) => {
                         )
                         //? {...product, comments: product.comments.push(action.payload.comment) }
                         //? JSON.parse(localStorage.getItem('active'))
-                        : product),
+                        : product),*/
                     activeProduct:{
                         ...state.activeProduct, 
+                        comments: [...action.payload.newComments],
+                        rate: [...action.payload.newCalifications], 
+                        users: [...action.payload.newUsers]
+                        /*
                         comments: [...state.activeProduct.comments, action.payload.comment],
                         rate: [...state.activeProduct.rate, action.payload.calification], 
-                        users: [...state.activeProduct.users, action.payload.uid]}
+                        users: [...state.activeProduct.users, action.payload.uid]*/
+                        
+                        }
                 }
+        /*
         case types.productRefresh:
             return {
                 ...state,
@@ -110,16 +142,12 @@ export const productReducer = ( state = initialState, action ) => {
                     ? {...action.payload.product}
                     :product
                 )
-            }
+            }*/
         case types.productLoaded:
             return {...state,
                     products:[...action.payload]
             }
-        case types.productFiltered:
-            return {
-                ...state,
-                filteredProducts: [...action.payload]
-            }
+       
         default:
             return {...state};
     }

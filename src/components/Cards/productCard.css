@@ -1,6 +1,7 @@
 .productCardContainer{
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    
     width: 15em;
     top:0;
     bottom: 0;
@@ -24,14 +25,29 @@
     cursor:pointer;
     width: 15em;
   }
-  .card .product{
-     border-radius:10px;
-     transition: 0.2s;
+  .card .product, .productCardContainer{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    transition: 0.2s;
   }
   .card:hover .product{
     transform:scale(1.4);
     border-top-right-radius:50px;
     border-top-left-radius:50px;
+  }
+  
+  .product{
+    /*width: 400px;
+    
+    height: 400px;
+    
+    */
+    width:max-content ;
+    object-fit: cover;
+    max-width: fit-content;
+    max-height: 230px;
+    min-width: 240px;
+    
   }
   
   .card .content{
@@ -95,6 +111,7 @@
   left: 0;
   right: 0;
   margin: auto;
-  
-  margin-bottom: 10em;
+}
+.cards{
+  margin-bottom: 8em !important;
 }
