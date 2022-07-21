@@ -1,8 +1,9 @@
 
 import { types } from '../types/types';
 import { arrange } from './commentAndCalificationActions';
-const apiURL='http://localhost:5000/appland-e-commerce-ec53d/us-central1/app/api'
+//const apiURL='http://localhost:5000/appland-e-commerce-ec53d/us-central1/app/api'
 
+const apiURL='https://us-central1-appland-e-commerce-ec53d.cloudfunctions.net/app/api'
 
 export const getProduct = (id) => {
     return async(dispatch) => {

@@ -1,7 +1,8 @@
 import { myDate } from "../helpers/Date";
 import { types } from "../types/types";
 import {setFire} from '../helpers/swal';
-const apiURL='http://localhost:5000/appland-e-commerce-ec53d/us-central1/app/api'
+//const apiURL='http://localhost:5000/appland-e-commerce-ec53d/us-central1/app/api'
+const apiURL='https://us-central1-appland-e-commerce-ec53d.cloudfunctions.net/app/api'
 
 export const startNewCalificationCommment=({calification, comment})=>{
     return async(dispatch, getState)=>{
